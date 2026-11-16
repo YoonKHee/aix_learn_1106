@@ -19,4 +19,5 @@ from django.urls import path,include
 app_name = ''
 urlpatterns = [
     path('',views.main, name='main'),
+    path('ajax_data/',views.ajax_data, name='ajax_data'),
 ]

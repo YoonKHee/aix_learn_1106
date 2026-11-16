@@ -6,7 +6,7 @@ import joblib
 # Create your views here.
 def ajax_data(request):
     context = {
-        'result':'40,11.73,7.22','result':878.40
+        'result':'40,11.73,7.22','result2':878.40
     }
     return JsonResponse(context)
 

@@ -3,14 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>Document</title>
 </head>
+
 <body>
     <h1>메인페이지</h1>
     <label for="">길이,높이,넓이를 입력하세요</label><br>
     <input type="text" name='data', id='data'>
-    <button type="button">예측</button>
-    <div id='result'>입력데이터 : [40.0,11.73,7.22]</div>
-    <div id='result2'>예측무게 : 878.40g</div>
+    <button type="button" id='dataBtn'>예측</button>
+    <div id='result'>입력데이터 : -</div>
+    <div id='result2'>예측무게 : -</div>
+    <script>
+    $('#btn').click(function(){
+        $.ajax({
+            url:'/ajax_data/',                          // 보내는 링크 주소
+            type:'post',                                // 전송방식
+            headers:{'X-CSRFToken':'{{csrf_token}}'},   // csrf_token
+            data:{},                                    // html에서 django로 보내는 데이터 (지금은 비움)
+            dataType:'json',                            // 받는 데이터 타입
+            success:function(data){                     // 성공하면 받은 데이터가 data에 들어옴
+                console.log(data);
+                $('#result').text('입력데이터 : ' + data.result);
+                $('#result2').text('예측무게 : ' + data.result2 + 'g');
+            },
+            error:function(){
+                alert('실패');
+            }
+        });
+    });
+</script>
 </body>
 </html>
