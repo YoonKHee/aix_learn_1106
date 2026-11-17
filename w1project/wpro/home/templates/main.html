@@ -21,7 +21,7 @@
                 success:function(data){
                     alert('예측 데이터를 가져옵니다. 성공'); //reuslt,result_data
                     console.log(data)
-                    const chart_data = Number(data.result_data)
+                    const chart_data = data.result_data
                     $('#result').text(send_data)
                     $('#result2').text(data.result_data)
                     const ctx = document.getElementById('myChart');
@@ -35,10 +35,10 @@
                     new Chart(ctx, {
                         type: 'bar',
                         data: {
-                        labels: ['예측종류'],
+                        labels: data.labels,
                         datasets: [{
-                        label: '예측종류',
-                        data: [chart_data],
+                        label: '확률(%)',
+                        data: data.proba,
                         borderWidth: 1,
                         barThickness:50 // 막대두께 50px 고정
                                 }]//datasets

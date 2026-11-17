@@ -21,10 +21,11 @@ def ajax_data(request):
     # 예측
     print('입력데이터 : ',result)
     result = model.predict([result])
-    print(f'예측종류 : {result[0]} ')
+    proba = model.predict_proba([in_data])[0]*100
+    print(f'예측종류 : {result[0]},{proba} ')
     # 파일전달
     context = {
-        'result_data':f'{result[0]}','result':'success'
+        'result_data':f'{result[0]}','result':'success','labels':list(model.classes_),'proba':[round(p,1) for p in proba]
     }
     return JsonResponse(context)
 
