@@ -18,11 +18,12 @@
                 data:{'data':send_data},
                 dataType:'json',
                 success:function(data){
-                    alert('상공')
+                    alert('성공')
                     console.log(data)
                     const chart_data = data.result_data
                     $('#result').text(send_data)
                     $('#result2').text(data.result_data)
+                    $('#result3').text(data.result3)
                     const ctx = document.getElementById('myChart');
 
                     let chartStatus = Chart.getChart("myChart");
@@ -37,7 +38,7 @@
                         labels: data.labels,
                         datasets: [{
                         label: '확률(%)',
-                        data: data.l_proba,
+                        data: data.proba,
                         borderWidth: 1,
                         barThickness:50 // 막대두께 50px 고정
                                 }]//datasets
@@ -65,6 +66,7 @@
     <button type="button" onclick = 'sendBtn()'>예측</button>
     <div>입력데이터: <span id='result'>데이터 입력</span></div>
     <div>예측생선: <span id='result2'>-</span></div>
+    <div>확률: <span id='result3'></span>%</div>
     <div>
     <canvas id="myChart"></canvas>
     </div>
