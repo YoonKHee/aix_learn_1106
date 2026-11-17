@@ -24,8 +24,9 @@ def ajax_data(resquest):
     print(f'출력{proba}{l_proba:.2f}')
 
     context = {
-        'result_data':f'{result1[0]}','result':'success','labels':list(model.classes_),'proba':'proba'
+        'result_data':f'{result1[0]}','result':'success','labels':list(model.classes_),'proba':(proba[0]*100).tolist()
     }
+    return JsonResponse(context)
 
 
 def index(request):

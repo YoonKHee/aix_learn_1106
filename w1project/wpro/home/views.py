@@ -20,8 +20,8 @@ def ajax_data(request):
 
     # 예측
     print('입력데이터 : ',result)
+    proba = model.predict_proba([result])[0]*100
     result = model.predict([result])
-    proba = model.predict_proba([in_data])[0]*100
     print(f'예측종류 : {result[0]},{proba} ')
     # 파일전달
     context = {
