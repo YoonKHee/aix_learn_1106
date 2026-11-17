@@ -20,11 +20,12 @@ def ajax_data(resquest):
     l_proba = proba.max()
     l_proba = l_proba*100
     proba = np.round(proba,decimals=3)
+    proba = proba[0]*100
     print('입력',result)
     print(f'출력{proba}{l_proba:.2f}')
 
     context = {
-        'result_data':f'{result1}','result':'success','labels':list(model.classes_),'proba':l_proba
+        'result_data':f'{result1[0]}','result':'success','labels':list(model.classes_),'proba':proba.tolist()
     }
     return JsonResponse(context)
 
