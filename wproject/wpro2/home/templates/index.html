@@ -37,7 +37,7 @@
                         labels: data.labels,
                         datasets: [{
                         label: '확률(%)',
-                        data: data.proba,
+                        data: data.l_proba,
                         borderWidth: 1,
                         barThickness:50 // 막대두께 50px 고정
                                 }]//datasets
@@ -65,5 +65,8 @@
     <button type="button" onclick = 'sendBtn()'>예측</button>
     <div>입력데이터: <span id='result'>데이터 입력</span></div>
     <div>예측생선: <span id='result2'>-</span></div>
+    <div>
+    <canvas id="myChart"></canvas>
+    </div>
 </body>
 </html>
