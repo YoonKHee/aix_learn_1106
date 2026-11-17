@@ -4,13 +4,38 @@ from django.http import JsonResponse
 import os
 import joblib
 # Create your views here.
+
+
 def ajax_data(request):
+    data = request.POST.get('data','40,11.73,7.22')
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    model = joblib.load(BASE_DIR / "model.joblib")
+    
+    # 파일 변환
+    in_data = data
+    in_data = in_data.split(',')
+    result = list(map(float,in_data))
+
+    # 예측
+    print('입력데이터 : ',result)
+    result = model.predict([result])
+    print(f'예측무게 : {result[0]:.2f} g')
+    # 파일전달
     context = {
-        'result':'40,11.73,7.22','result2':878.40
+        'result_data':f'{result[0]:.2f}','result':'success'
     }
     return JsonResponse(context)
 
+
+
+
 def main(request):
-    data = request.POST.get('data','40.0,11.73,7.22')
-    context = {'result':data,'result2':878.40}
-    return render(request,'main.html',context)
+    # BASE_DIR = Path(__file__).resolve().parent.parent
+    # model = joblib.load(BASE_DIR / 'model.joblib')# 라이브러리를 로딩하겠다
+    
+    # # 예측
+    # in_data='40,11.73,7.22'
+    # in_data = list(map(float,in_data.split(',')))
+    # result = model.predict([in_data])
+
+    return render(request,'main.html')
