@@ -6,10 +6,12 @@ import joblib
 # Create your views here.
 
 
+BASE_DIR = Path(__file__).resolve().parent.parent 
+model = joblib.load(BASE_DIR / "model.joblib") # 전역변수로 사용해야 편함.
+    
+
 def ajax_data(request):
     data = request.POST.get('data','40,11.73,7.22')
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    model = joblib.load(BASE_DIR / "model.joblib")
     
     # 파일 변환
     in_data = data

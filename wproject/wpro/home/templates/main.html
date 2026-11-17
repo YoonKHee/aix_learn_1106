@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>메인페이지</title>
     <script>
         function sendBtn(){
@@ -20,17 +21,43 @@
                 success:function(data){
                     alert('예측 데이터를 가져옵니다. 성공'); //reuslt,result_data
                     console.log(data)
+                    const chart_data = Number(data.result_data)
                     $('#result').text(send_data)
-                    $('#result2').text(result_data)
-                },
-                fail:function(){
+                    $('#result2').text(data.result_data)
+                    const ctx = document.getElementById('myChart');
+
+                    let chartStatus = Chart.getChart("myChart");
+                    if(chartStatus != undefined){
+                    console.log("destroy success");
+                    chartStatus.destroy();//리셋
+                    }
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                        labels: ['예측무게'],
+                        datasets: [{
+                        label: '예측무게',
+                        data: [chart_data],
+                        borderWidth: 1,
+                        barThickness:50 // 막대두께 50px 고정
+                                }]//datasets
+                        },//data
+                        options: {
+                        scales: {
+                        y: {
+                        beginAtZero: true
+                        }//y
+                        }//scales
+                    }//option
+                    });//chart
+                                },
+                error:function(){
                     alert('예측하는데 오류가 발생했습니다. 다시 시도해주세요.')
                 }
-
-
             });
         }
-
+        
     </script>
 </head>
 
@@ -42,5 +69,15 @@
     <div>입력데이터 : <span id="result">데이터 입력</span></div>
     <div>예측무게 : <span id="result2">0</span>g</div>
 
+<!--그래프-->
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    
+</script>   
 </body>
 </html>
