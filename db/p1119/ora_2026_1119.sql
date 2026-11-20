@@ -227,7 +227,7 @@ csales varchar2(100)
 );
 
 select * from screen;
---drop table screen;
+--drop table screen2;
 
 create table screen2(
 movieCd varchar(10) primary key,
